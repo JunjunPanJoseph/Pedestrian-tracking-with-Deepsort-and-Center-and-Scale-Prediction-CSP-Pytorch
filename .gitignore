@@ -1,0 +1,7 @@
+.idea
+__pycache__
+*.jpg
+*.npz
+*.pth
+*.t7
+*.rar
