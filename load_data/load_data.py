@@ -86,11 +86,11 @@ def _get_pets2009(dir='./data_PETS2009'):
             raise Exception('# img != # labels')
         print('Load sequence: ' + str(images_sequence.shape))
         if folder == 'S2L1':
-            # Use first 100 images for testing
-            start = 400
-            end = 500
-            train_img.append(images_sequence[:start])
-            train_label += labels_sequence[:start]
+            # Use first 150 images for testing
+            start = 0
+            end = 150
+            # train_img.append(images_sequence[:start])
+            # train_label += labels_sequence[:start]
             test_img.append(images_sequence[start:end])
             test_label += labels_sequence[start:end]
             train_img.append(images_sequence[end:])

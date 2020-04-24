@@ -1,0 +1,6 @@
+# boxes in ground truth: 873
+# boxes in output 879 (detections)
+IOU,    AP     AR
+0.50  , 95.58, 96.24
+0.75  , 95.58, 96.24
+0.95  , 34.68, 34.91

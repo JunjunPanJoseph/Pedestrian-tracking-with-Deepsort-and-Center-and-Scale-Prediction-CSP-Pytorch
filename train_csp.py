@@ -11,7 +11,7 @@ from net.csp import *
 from config import Config
 os.environ["CUDA_VISIBLE_DEVICES"] = "0,1"
 
-load_ckpt = 0
+load_ckpt = 9
 
 parser = argparse.ArgumentParser(description='CSP Training')
 parser.add_argument('--num_workers', default=0, type=int, help='Number of workers used in dataloading')
@@ -52,10 +52,12 @@ def validation(net, validationloader, device, criterion):
         total_reg_loss_h += round(reg_loss_h.item(), 5)
         total_reg_loss_w += round(reg_loss_w.item(), 5)
         total_offset_loss += round(offset_loss.item(), 5)
-
-    print('====    Validation loss: center_loss:{}   reg_loss_h:{}   reg_loss_w:{}   offset_loss:{}'.format
+    '''
+     print('====    Validation loss: center_loss:{}   reg_loss_h:{}   reg_loss_w:{}   offset_loss:{}'.format
           (total_center_loss / count, total_reg_loss_h / count, total_reg_loss_w / count, total_offset_loss / count))
-
+    '''
+    print('validation, {}, {}, {}, {}, {}'.format(0, round(center_loss.item(), 5), round(reg_loss_h.item(), 5),
+                                                round(reg_loss_w.item(), 5), round(offset_loss.item(), 5)))
 
 def train():
     config = Config()
@@ -114,11 +116,14 @@ def train():
                       (epoch, config.epoch_size, i, round(center_loss.item(), 5), round(reg_loss_h.item(), 5),
                        round(reg_loss_w.item(), 5), round(offset_loss.item(), 5)))
            '''
+        '''
         print(
             'Training loss: epoch:{}/{}   center_loss:{}   reg_loss_h:{}   reg_loss_w:{}   offset_loss:{}'.format
             (epoch, config.epoch_size, round(center_loss.item(), 5), round(reg_loss_h.item(), 5),
              round(reg_loss_w.item(), 5), round(offset_loss.item(), 5)))
-        if (epoch % 5 == 0 and epoch > 0) or (epoch % 5 == 0 and epoch > 200):
+        '''
+        print('training, {}, {}, {}, {}, {}'.format(epoch, round(center_loss.item(), 5), round(reg_loss_h.item(), 5), round(reg_loss_w.item(), 5), round(offset_loss.item(), 5)))
+        if (epoch % 3 == 0 and epoch > 0) or (epoch % 5 == 0 and epoch > 200):
             torch.save(net.module.state_dict(), './weights/' + 'CSP_epoch_' + str(epoch) + '.pth')
             validation(net, validationloader, device, criterion)
 
